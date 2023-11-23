@@ -1,0 +1,13 @@
+Требуется установленный и запущенный редис!
+
+Установка uvicorn
+pip install "uvicorn[standard]"
+
+Установить зависимости
+pip install -r requirements.txt
+
+Запустить сервер
+python3 server.py
+
+Запустить клиент
+python3 crawl.py https://mail.ru https://www.wikipedia.org https://21-school.ru https://habr.com/ru/companies/otus/articles/681560/ https://www.youtube.com https://ya.ru https://vk.com/admin http://ya.ru https://21-school.ru/12312
