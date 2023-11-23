@@ -1,7 +1,6 @@
-import asyncio, httpx, pydantic
+import asyncio, httpx, pydantic, logging, uvicorn
 from fastapi import FastAPI, Request
-from uuid import uuid4, UUID
-import typing
+from uuid import uuid4
 
 answers = {}
 app = FastAPI()
@@ -15,7 +14,7 @@ async def get_code(lnk):
     async with httpx.AsyncClient() as client:
         resp = await client.get(lnk)
         return resp.status_code
-    
+
 async def get_codes(urls, curuuid):
     tasks = []
     async with asyncio.TaskGroup() as tg:
@@ -47,3 +46,14 @@ async def check_task(received_task_id):
     if received_task_id not in answers:
         return {'id_': received_task_id, 'status': 'wrong_id'}
     return answers[received_task_id]
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    uvicorn.run(
+        'server:app',
+        host='127.0.0.1',
+        port=8888,
+        log_level='info',
+        loop='asyncio'
+    )
